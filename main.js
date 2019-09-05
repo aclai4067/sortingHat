@@ -17,10 +17,10 @@ const createForm = () => {
                 </div>
                 <div class="col-auto">
                     <label for="inputPassword2" class="sr-only">John Doe</label>
-                    <input type="password" class="form-control" id="inputPassword2" placeholder="John Doe">
+                    <input type="text" class="form-control" id="inputPassword2" placeholder="John Doe">
                 </div>
                 <div class="col-auto">
-                    <button type="submit" id="sortButton" class="btn btn-outline-success mb-2">Sort!</button>
+                    <button type="button" id="sortButton" class="btn btn-outline-success mb-2">Sort!</button>
                 </div>
             </div>
         </form>
@@ -29,16 +29,31 @@ const createForm = () => {
     document.getElementById('jumbotronBtn').style.display = "none";
 };
 
-const createCard = () => {
 
+const createCard = () => {
+    let createCard = '';
+    let studentInput = document.getElementById('inputPassword2').value;
+    createCard += `
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h3 class="card-title">${studentInput}</h3>
+                <p class="card-text">${}</p>
+                <a href="#" class="btn btn-outline-dark">Expell</a>
+            </div>
+        </div>
+    `;
 };
 
 const buttonClick = (e) => {
     const selectedBtn = e.target.id;
     if (selectedBtn === 'jumbotronBtn') {
         createForm();
+        document.getElementById('sortButton').addEventListener('click', buttonClick);
+    } else if (selectedBtn === 'sortButton') {
+        testInput();
     }
     
 };
 
 document.getElementById('jumbotronBtn').addEventListener('click', buttonClick);
+
