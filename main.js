@@ -62,21 +62,37 @@ const printCard = (cardArr) => {
     }    
     printToDom('cardDiv', createCard);
     for (let n = 0; n <= counter; n++) {
-        document.getElementById(`expel${counter}`).addEventListener('click', buttonClick);
+        document.getElementById(`expel${n}`).addEventListener('click', buttonClick);
     };
     counter++
     document.getElementById('inputPassword2').value = '';
 };
 
-const convertToVoldermortsArmy = (e) => {
+
+
+const changeSides = (e, currentArr, newArr) => {
     const selectedBtn = e.target.id;
-    const darkCard = document.getElementById(selectedBtn).parentElement.parentElement;
-    darkCard.classList.add('bg-dark', 'text-white'); //add class 'bg-dark text-white'
-    document.getElementById('cardDiv').removeChild(darkCard)
-    document.getElementById('darkCardDiv').appendChild(darkCard);
-    document.getElementById(selectedBtn).innerHTML = 'Reinstate';
-    document.getElementById(selectedBtn).classList.remove('btn-outline-dark', 'expel');
-    document.getElementById(selectedBtn).classList.add('btn-outline-light', 'reinstate');
+    const selectedCard = document.getElementById(selectedBtn).parentElement.parentElement;
+    const SelectedCardIndex = currentArr.indexOf(selectedCard);
+    const selectedObj = currentArr.splice(SelectedCardIndex, 1);
+    newArr.push(selectedObj[0]);
+    if (selectedCard.parentElement.id === 'cardDiv') {
+        // Change card to dark format and replace expell button with reinstate
+        selectedCard.classList.add('bg-dark', 'text-white'); 
+        document.getElementById(selectedBtn).innerHTML = 'Reinstate';
+        document.getElementById(selectedBtn).classList.remove('btn-outline-dark', 'expel');
+        document.getElementById(selectedBtn).classList.add('btn-outline-light', 'reinstate');
+    } else {
+        selectedCard.classList.remove('bg-dark', 'text-white');
+        // Change card to light format and replace reinstate button with expel
+        document.getElementById(selectedBtn).innerHTML = 'Expel';
+        document.getElementById(selectedBtn).classList.remove('btn-outline-light', 'reinstate');
+        document.getElementById(selectedBtn).classList.add('btn-outline-dark', 'expel');
+    };
+    // document.getElementById('cardDiv').removeChild(selectedCard)
+    // document.getElementById('darkCardDiv').appendChild(selectedCard);
+    
+    
 };
 
 const buttonClick = (e) => {
@@ -89,7 +105,7 @@ const buttonClick = (e) => {
         
     } else {
         console.log(selectedBtn);
-        convertToVoldermortsArmy(e);
+        changeSides(e, hogwartsCardArr, voldermortCardArr);
         // use if/else on class to target expell v reinstate using same ID!!!
     }
     
