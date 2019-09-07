@@ -46,6 +46,8 @@ const newObject = (cardArr) => {
     cardArr.push({name: `${studentInput}`, house: `${hpHouses[randomNum]}`, seqId: `expel${counter}`});
 };
 
+
+
 const printCard = (cardArr) => {   
     let createCard = '';
     if (cardArr === hogwartsCardArr) {
@@ -102,6 +104,15 @@ const buttonClick = (e) => {
         document.getElementById('sortButton').addEventListener('click', buttonClick);
     } else if (selectedBtn === 'sortButton') {
         newObject(hogwartsCardArr);
+        hogwartsCardArr.sort((first, last) => {
+                if (first.house > last.house) {
+                    return 1
+                } else {
+                    return -1
+                }
+
+            }
+        );
         printCard(hogwartsCardArr);  
         counter++;
     } else {
