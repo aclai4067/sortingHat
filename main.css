@@ -2,6 +2,20 @@ body{
     background-color: darkgreen;
 }
 
+/* .bg-dark .expell.button{
+    display: none;
+} */
+
+.card{
+    margin-top: 2em;
+    width: 18rem;
+}
+
+#cardDiv, #darkCardDiv{
+    align-content: space-around;
+    justify-content: space-evenly;
+}
+
 .container{
     margin-top: 3em;
 }
