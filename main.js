@@ -1,18 +1,12 @@
 const printToDom = (divId, textToPrint) => {
     const selectedDiv = document.getElementById(divId);
-    selectedDiv.innerHTML += textToPrint;
+    selectedDiv.innerHTML = textToPrint;
 };
 
 const hpHouses = ['Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin'];
-// const hogwartsCardArr = [
-//     {
-//         name: '',
-//         house: '',
-//         seqId: ''
-//     }
-// ];
-// const voldermortCardArr = [];
-let createCard = '';
+const hogwartsCardArr = [];
+const voldermortCardArr = [];
+
 let counter = 0;
 
 const createForm = () => {
@@ -43,51 +37,93 @@ const createForm = () => {
 
 
 // enhancement- add house images to cards
-// add voldermort house?
+// reinstate button
+// replace house with voldermort's army?
 
-const printCard = () => {   
+const newObject = (cardArr) => {
     let randomNum = Math.floor(Math.random() * 4);
     let studentInput = document.getElementById('inputPassword2').value;
-        createCard = `
-                <div class="card text-center" id="$expell${counter}Card">
-                    <div class="card-body">
-                        <h3 class="card-title">${studentInput}</h3>
-                        <p class="card-text ${hpHouses[randomNum]}">${hpHouses[randomNum]}</p>
-                        <button type="button" id="expell${counter}" class="btn btn-outline-dark expell">Expell</button>
+    cardArr.push({name: `${studentInput}`, house: `${hpHouses[randomNum]}`, seqId: `expel${counter}`});
+};
+
+
+
+const printCard = (cardArr) => {   
+    let createCard = '';
+    if (cardArr === hogwartsCardArr) {
+        for (let i = 0; i < cardArr.length; i++) {
+            let cardObj = cardArr[i];
+            createCard += `
+                    <div class="card text-center" id="${cardObj.seqId}Card">
+                        <div class="card-body">
+                            <h3 class="card-title">${cardObj.name}</h3>
+                            <p class="card-text ${cardObj.house}">${cardObj.house}</p>
+                            <button type="button" id="${cardObj.seqId}" class="btn btn-outline-dark expel">Expel</button>
+                        </div>
                     </div>
-                </div>
-        `
-    printToDom('cardDiv', createCard);
-    for (let n = 0; n <= counter; n++) {
-        document.getElementById(`expell${n}`).addEventListener('click', buttonClick);
+            `
+        } ;
+        printToDom('cardDiv', createCard);
+    } else {  
+        for (let i = 0; i < cardArr.length; i++) {
+            let cardObj = cardArr[i];
+            createCard += `
+                    <div class="card text-center bg-dark text-white" id="${cardObj.seqId}Card">
+                        <div class="card-body">
+                            <h3 class="card-title">${cardObj.name}</h3>
+                            <p class="card-text ${cardObj.house}">${cardObj.house}</p>
+                            <button type="button" id="${cardObj.seqId}" class="btn btn-outline-light reinstate">Reinstate</button>
+                        </div>
+                    </div>
+            `
+        } ;
+        printToDom('darkCardDiv', createCard);
     };
-    counter++
+    for (let n = 0; n <= counter; n++) {
+        const targtButton = document.getElementById(`expel${n}`);
+        if (targtButton){
+            targtButton.addEventListener('click', buttonClick);
+        };
+    };
     document.getElementById('inputPassword2').value = '';
 };
 
-const convertToVoldermortsArmy = (e) => {
+
+const changeSides = (e, currentArr, newArr) => {
     const selectedBtn = e.target.id;
-    const darkCard = document.getElementById(selectedBtn).parentElement.parentElement;
-    darkCard.classList.add('bg-dark', 'text-white'); //add class 'bg-dark text-white'
-    document.getElementById('cardDiv').removeChild(darkCard)
-    document.getElementById('darkCardDiv').appendChild(darkCard);
-    document.getElementById(selectedBtn).innerHTML = 'Reinstate';
-    document.getElementById(selectedBtn).classList.remove('btn-outline-dark', 'expell');
-    document.getElementById(selectedBtn).classList.add('btn-outline-light', 'reinstate');
+    const SelectedCardIndex = currentArr.findIndex(obj => obj.seqId === selectedBtn);
+    const selectedObj = currentArr.splice(SelectedCardIndex, 1);
+    newArr.push(selectedObj[0]);
 };
 
 const buttonClick = (e) => {
     const selectedBtn = e.target.id;
+    const selectedCardParentDiv = document.getElementById(selectedBtn).parentElement.parentElement.parentElement;
     if (selectedBtn === 'jumbotronBtn') {
         createForm();
         document.getElementById('sortButton').addEventListener('click', buttonClick);
     } else if (selectedBtn === 'sortButton') {
-        printCard();
-        
+        newObject(hogwartsCardArr);
+        hogwartsCardArr.sort((first, last) => {
+                if (first.house > last.house) {
+                    return 1
+                } else {
+                    return -1
+                }
+
+            }
+        );
+        printCard(hogwartsCardArr);  
+        counter++;
     } else {
-        console.log(selectedBtn);
-        convertToVoldermortsArmy(e);
-    }
+        if (selectedCardParentDiv.id === 'cardDiv') {
+            changeSides(e, hogwartsCardArr, voldermortCardArr);
+        } else {
+            changeSides(e, voldermortCardArr, hogwartsCardArr);
+        }
+        printCard(hogwartsCardArr);
+        printCard(voldermortCardArr);
+    };
     
 };
 
