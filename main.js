@@ -4,14 +4,8 @@ const printToDom = (divId, textToPrint) => {
 };
 
 const hpHouses = ['Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin'];
-// const hogwartsCardArr = [
-//     {
-//         name: '',
-//         house: '',
-//         seqId: ''
-//     }
-// ];
-// const voldermortCardArr = [];
+const hogwartsCardArr = [];
+const voldermortCardArr = [];
 let createCard = '';
 let counter = 0;
 
@@ -43,23 +37,32 @@ const createForm = () => {
 
 
 // enhancement- add house images to cards
-// add voldermort house?
+// reinstate button
+// replace house with voldermort's army?
 
-const printCard = () => {   
+const printCard = (cardArr) => {   
     let randomNum = Math.floor(Math.random() * 4);
     let studentInput = document.getElementById('inputPassword2').value;
+        cardArr.push({name: `${studentInput}`, house: `${hpHouses[randomNum]}`, seqId: `expel${counter}`});
+        // cardArr.push({house: `${hpHouses[randomNum]}`});
+        // cardArr.push({seqId: `expel${counter}`});
+        console.log(cardArr);
+        console.log(counter);
+    for (let i = 0; i < cardArr.length; i++) {
+        let cardObj = cardArr[i];
         createCard = `
-                <div class="card text-center" id="$expell${counter}Card">
+                <div class="card text-center" id="${cardObj.seqId}Card">
                     <div class="card-body">
-                        <h3 class="card-title">${studentInput}</h3>
-                        <p class="card-text ${hpHouses[randomNum]}">${hpHouses[randomNum]}</p>
-                        <button type="button" id="expell${counter}" class="btn btn-outline-dark expell">Expell</button>
+                        <h3 class="card-title">${cardObj.name}</h3>
+                        <p class="card-text ${cardObj.house}">${cardObj.house}</p>
+                        <button type="button" id="${cardObj.seqId}" class="btn btn-outline-dark expel">Expel</button>
                     </div>
                 </div>
         `
+    }    
     printToDom('cardDiv', createCard);
     for (let n = 0; n <= counter; n++) {
-        document.getElementById(`expell${n}`).addEventListener('click', buttonClick);
+        document.getElementById(`expel${counter}`).addEventListener('click', buttonClick);
     };
     counter++
     document.getElementById('inputPassword2').value = '';
@@ -72,7 +75,7 @@ const convertToVoldermortsArmy = (e) => {
     document.getElementById('cardDiv').removeChild(darkCard)
     document.getElementById('darkCardDiv').appendChild(darkCard);
     document.getElementById(selectedBtn).innerHTML = 'Reinstate';
-    document.getElementById(selectedBtn).classList.remove('btn-outline-dark', 'expell');
+    document.getElementById(selectedBtn).classList.remove('btn-outline-dark', 'expel');
     document.getElementById(selectedBtn).classList.add('btn-outline-light', 'reinstate');
 };
 
@@ -82,11 +85,12 @@ const buttonClick = (e) => {
         createForm();
         document.getElementById('sortButton').addEventListener('click', buttonClick);
     } else if (selectedBtn === 'sortButton') {
-        printCard();
+        printCard(hogwartsCardArr);
         
     } else {
         console.log(selectedBtn);
         convertToVoldermortsArmy(e);
+        // use if/else on class to target expell v reinstate using same ID!!!
     }
     
 };
