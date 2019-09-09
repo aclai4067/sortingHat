@@ -7,7 +7,6 @@ const hpHouses = ['Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin'];
 const hpCrests = ['https://webstockreview.net/images/houses-clipart-harry-potter-13.png', 'https://www.nicepng.com/png/full/43-439104_hufflepuff-crest-harry-potter-banner-harry-potter-hufflepuff.png', 'https://www.fourjay.org/myphoto/f/37/372749_ravenclaw-crest-png.png', 'https://cdn.shopify.com/s/files/1/1325/3287/products/HP8040B_dc8bf299-48e5-481c-829a-c0548d3c12b8.png?v=1546231184']
 const hogwartsCardArr = [];
 const voldermortCardArr = [];
-
 let counter = 0;
 
 const createForm = () => {
@@ -24,7 +23,7 @@ const createForm = () => {
                 </div>
                 <div class="col-auto">
                     <label for="inputPassword2" class="sr-only">John Doe</label>
-                    <input type="text" class="form-control" id="inputPassword2" placeholder="John Doe">
+                    <input type="text" class="form-control" id="inputPassword2" placeholder="John Doe" Required>
                 </div>
                 <div class="col-auto">
                     <button type="button" id="sortButton" class="btn btn-outline-success mb-2">Sort!</button>
@@ -34,12 +33,8 @@ const createForm = () => {
     `;
     printToDom('formDiv', formString);
     document.getElementById('jumbotronBtn').style.display = "none";
+    
 };
-
-
-// enhancement- add house images to cards
-// reinstate button
-// replace house with voldermort's army?
 
 const newObject = (cardArr) => {
     let randomNum = Math.floor(Math.random() * 4);
@@ -116,10 +111,14 @@ const buttonClick = (e) => {
         createForm();
         document.getElementById('sortButton').addEventListener('click', buttonClick);
     } else if (selectedBtn === 'sortButton') {
-        newObject(hogwartsCardArr);
-        orderByHouse();
-        printCard(hogwartsCardArr);  
-        counter++;
+        if (document.getElementById('inputPassword2').value){
+            newObject(hogwartsCardArr);
+            orderByHouse();
+            printCard(hogwartsCardArr);  
+            counter++;
+        } else {
+            alert('Please enter a name!');
+        }
     } else {
         if (selectedCardParentDiv.id === 'cardDiv') {
             changeSides(e, hogwartsCardArr, voldermortCardArr);
