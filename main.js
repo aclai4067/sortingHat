@@ -23,7 +23,7 @@ const createForm = () => {
                 </div>
                 <div class="col-auto">
                     <label for="inputPassword2" class="sr-only">John Doe</label>
-                    <input type="text" class="form-control" id="inputPassword2" placeholder="John Doe" Required>
+                    <input type="text" class="form-control" id="inputPassword2" placeholder="John Doe">
                 </div>
                 <div class="col-auto">
                     <button type="button" id="sortButton" class="btn btn-outline-success mb-2">Sort!</button>
