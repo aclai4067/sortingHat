@@ -1,10 +1,6 @@
 body{
-    background-color: darkgreen;
+    background-color: rgb(219, 221, 219);
 }
-
-/* .bg-dark .expell.button{
-    display: none;
-} */
 
 .card{
     margin-top: 2em;
@@ -21,9 +17,33 @@ body{
 }
 
 .form-inline{
-    background-color: white;
-    border: 2px solid black;
+    background-color: #e9ecef;
+    /* border: 2px solid black; */
     border-radius: 5px;
+}
+
+.Gryffindor{
+    background-color: rgb(146, 84, 84);
+}
+
+.Hufflepuff{
+    background-color: goldenrod;
+}
+
+.Ravenclaw{
+    background-color: rgb(90, 96, 151);
+}
+
+.shiftForm{
+    margin-left: auto;
+}
+
+.Slytherin{
+    background-color: rgb(116, 150, 116);
+}
+
+#sortButton{
+    margin-left: 2em;
 }
 
 #staticEmail{
