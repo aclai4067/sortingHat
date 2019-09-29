@@ -6,7 +6,7 @@ const printToDom = (divId, textToPrint) => {
 const hpHouses = ['Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin'];
 const hpCrests = ['https://webstockreview.net/images/houses-clipart-harry-potter-13.png', 'https://www.nicepng.com/png/full/43-439104_hufflepuff-crest-harry-potter-banner-harry-potter-hufflepuff.png', 'https://www.fourjay.org/myphoto/f/37/372749_ravenclaw-crest-png.png', 'https://cdn.shopify.com/s/files/1/1325/3287/products/HP8040B_dc8bf299-48e5-481c-829a-c0548d3c12b8.png?v=1546231184']
 const hogwartsCardArr = [];
-const voldermortCardArr = [];
+const voldemortCardArr = [];
 let counter = 0;
 
 const createForm = () => {
@@ -121,13 +121,13 @@ const buttonClick = (e) => {
         }
     } else {
         if (selectedCardParentDiv.id === 'cardDiv') {
-            changeSides(e, hogwartsCardArr, voldermortCardArr);
+            changeSides(e, hogwartsCardArr, voldemortCardArr);
         } else {
-            changeSides(e, voldermortCardArr, hogwartsCardArr);
+            changeSides(e, voldemortCardArr, hogwartsCardArr);
         }
         orderByHouse();
         printCard(hogwartsCardArr);
-        printCard(voldermortCardArr);
+        printCard(voldemortCardArr);
     };
     
 };
