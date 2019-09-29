@@ -6,7 +6,7 @@ Use application to randomly sort names entered into one of the four Hogwarts hou
 
 ## ScreenShots
 ![sorint hat on load](https://raw.githubusercontent.com/aclai4067/sortingHat/master/screenshots/sorting-hat-load.png)
-![sorint hat name entry form](https://raw.githubusercontent.com/aclai4067/sortingHat/master/screenshots/sorting-hat-load.png)
+![sorint hat name entry form](https://raw.githubusercontent.com/aclai4067/sortingHat/master/screenshots/sorting-hat-form.png)
 ![sorting hat after submissions](https://raw.githubusercontent.com/aclai4067/sortingHat/master/screenshots/sorting-hat-sort.png)
 ![sorting hat expelled students](https://raw.githubusercontent.com/aclai4067/sortingHat/master/screenshots/sorting-hat-expel.png)
 
